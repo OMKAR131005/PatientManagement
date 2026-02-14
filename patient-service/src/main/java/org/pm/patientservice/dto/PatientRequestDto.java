@@ -3,6 +3,8 @@ package org.pm.patientservice.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import jakarta.validation.groups.Default;
+import org.pm.patientservice.exceptions.validator.CreateGroupForDTO;
 
 public class PatientRequestDto {
     @Size(max=100, min=10 ,message="length of name must be greater 10 and smaller 100")
@@ -16,7 +18,7 @@ public class PatientRequestDto {
     private String address;
     @NotNull(message = "dateOfBirth can not be blank")
     private String dateOfBirth;
-    @NotNull(message = "registrationDate can not be blank")
+    @NotNull( groups={CreateGroupForDTO.class}, message = "registrationDate can not be blank")
     private String registrationDate;
 
     public @Size(max = 100, min = 10, message = "length of name must be greater 10 and smaller 100") @NotNull(message = "name can not be empty") String getName() {
@@ -51,11 +53,11 @@ public class PatientRequestDto {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public @NotNull(message = "registrationDate can not be blank") String getRegistrationDate() {
+    public String getRegistrationDate() {
         return registrationDate;
     }
 
-    public void setRegistrationDate(@NotNull(message = "registrationDate can not be blank") String registrationDate) {
+    public void setRegistrationDate( String registrationDate) {
         this.registrationDate = registrationDate;
     }
 }
